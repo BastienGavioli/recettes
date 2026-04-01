@@ -4,13 +4,35 @@
 
 {% block body %}
 <p>
-    Toutes les recettes :
+    Liste de toutes les recettes :
 </p>
-<ul>
-    {% for recipe in recipes %}
-    <li>
-        <a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id})}}">{{ recipe.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
+<p>
+    <a class="btn btn-primary btn-sm" href="{{ path('recipe.create')}}">Créer une recette</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Recette</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recipe in recipes %}
+        <tr>
+            <td>
+                <a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id})}}">{{ recipe.title }}</a>
+            </td>
+            <td>
+                <div class="d-flex gap-1">
+                    <a class="btn btn-primary btn-sm" href="{{ path('recipe.edit', {id: recipe.id})}}">Éditer</a>
+                    <form action="{{ path('recipe.delete', {id: recipe.id})}}" method="POST">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
