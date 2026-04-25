@@ -24,21 +24,6 @@ final class RecipeController extends AbstractController
         ]);
     }
 
-
-    /* #[Route('/recipes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
-    public function show(Request $request, string $slug, int $id, RecipeRepository $reposotory): Response
-    {
-        $recipe = $reposotory->find($id);
-
-        if ($slug !== $recipe->getSlug()) {
-            $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $id]);
-        }
-        
-        return $this->render('recipe/show.html.twig', [
-            'recipe' => $recipe,
-        ]);
-    } */
-
     #[Route('/create', name: 'create')]
     public function create(Request $request, EntityManagerInterface $em) {
         $recipe = new Recipe();
