@@ -18,9 +18,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class RecipeController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(RecipeRepository $reposotory): Response
+    public function index(RecipeRepository $reposotory, Request $request): Response
     {
-        $recipes = $reposotory->findWithDurationLowerThan(20);
+        $page = $request->query->getInt('page', 1);
+        $recipes = $reposotory->paginateRecipes($page);
         return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipes
         ]);
